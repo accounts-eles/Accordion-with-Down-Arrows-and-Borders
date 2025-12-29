@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Learning Activity - Accordion V2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Brand Colors: 
+           #1f2a52 (Midnight Blue)
+           #00bec7 (Teal)
+           #d2f0f0 (Light Aqua)
+           #abb5bf (Slate Grey)
+        */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1f2a52;
+            padding: 2rem 1rem;
+        }
+
+        .accordion-container {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(31, 42, 82, 0.1);
+            overflow: hidden;
+            border: 2px solid #1f2a52; /* Main container border */
+            padding: 1rem;
+        }
+
+        .accordion-item {
+            border: 1px solid #1f2a52;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            background-color: #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+        .accordion-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            background-color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: #d2f0f0; /* Hover state */
+        }
+
+        .accordion-header.active {
+            background-color: #00bec7; /* Active state teal */
+            color: #ffffff;
+        }
+
+        .accordion-header h3 {
+            font-weight: 700;
+            color: inherit; /* Takes color from header state */
+            margin: 0;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .icon-wrapper {
+            width: 36px;
+            height: 36px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background-color: #f1f5f9;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header.active .icon-wrapper {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-svg {
+            width: 24px;
+            height: 24px;
+            color: #00bec7; /* Icon color teal */
+            transition: color 0.3s ease;
+        }
+
+        .accordion-header.active .icon-svg {
+            color: #ffffff;
+        }
+
+        .accordion-arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+            color: #abb5bf;
+        }
+
+        .accordion-header.active .accordion-arrow {
+            transform: rotate(90deg);
+            color: #ffffff;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, background-color 0.3s ease;
+            background-color: #ffffff;
+        }
+
+        .accordion-content.open {
+            max-height: 500px; /* Limit for transition */
+            background-color: #f8fafc;
+            border-top: 1px solid #d2f0f0;
+        }
+
+        .content-inner {
+            padding: 1.5rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .lorem-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .lorem-list li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accordion-container">
+        <!-- Item 1: Purpose -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>
+                    <div class="icon-wrapper">
+                        <!-- SVG Target Icon -->
+                        <svg class="icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    Lorem Ipsum Purpose
+                </h3>
+                <svg class="accordion-arrow" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2: Inputs -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>
+                    <div class="icon-wrapper">
+                        <!-- SVG Input/Inbox Icon -->
+                        <svg class="icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </div>
+                    Lorem Ipsum Inputs
+                </h3>
+                <svg class="accordion-arrow" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3: Outcomes -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>
+                    <div class="icon-wrapper">
+                        <!-- SVG Outcomes/Checklist Icon -->
+                        <svg class="icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    Lorem Ipsum Outcomes
+                </h3>
+                <svg class="accordion-arrow" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Expected outcomes include the following key elements:</p>
+                    <ul class="lorem-list">
+                        <li>Duis aute irure dolor in reprehenderit in voluptate.</li>
+                        <li>Velit esse cillum dolore eu fugiat nulla pariatur.</li>
+                        <li>Excepteur sint occaecat cupidatat non proident.</li>
+                        <li>Sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const content = header.nextElementSibling;
+            const allHeaders = document.querySelectorAll('.accordion-header');
+            const allContents = document.querySelectorAll('.accordion-content');
+
+            // Close others
+            allHeaders.forEach(h => {
+                if (h !== header) h.classList.remove('active');
+            });
+            allContents.forEach(c => {
+                if (c !== content) c.classList.remove('open');
+            });
+
+            // Toggle current
+            header.classList.toggle('active');
+            content.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
